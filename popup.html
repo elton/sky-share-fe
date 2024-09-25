@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片上传插件</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="dropArea" class="drop-area">
+        <div>
+          <p class="uil--plus-circle"></p>
+          <p>点击或者拖拽图片到这里</p>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" hidden />
+      </div>
+      <div id="previewArea" class="preview-area" style="display: none">
+        <img id="previewImage" src="" alt="预览图片" />
+        <button id="closeButton" class="close-button">
+          <span class="ri--close-circle-fill"></span>
+        </button>
+        <p id="fileName"></p>
+      </div>
+      <div class="upload">
+        <div id="imageURLCopy" class="image-url-copy">
+          <p class="catppuccin--url"></p>
+          <p id="imageUrl" class="image-url"></p>
+          <p class="heroicons-outline--clipboard-copy"></p>
+        </div>
+        <button id="uploadButton" class="upload-button" disabled>上传</button>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
