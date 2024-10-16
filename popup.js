@@ -11,34 +11,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let selectedFile = null
 
+  // 事件监听器
   dropArea.addEventListener('click', () => fileInput.click())
-
-  dropArea.addEventListener('dragover', (e) => {
-    e.preventDefault()
-    dropArea.style.borderColor = '#4CAF50'
-    dropArea.style.backgroundColor = '#f0f0f0' // 增加背景色变化
-  })
-
-  dropArea.addEventListener('dragleave', () => {
-    dropArea.style.borderColor = '#ccc'
-    dropArea.style.backgroundColor = '' // 恢复背景色
-  })
-
-  dropArea.addEventListener('drop', (e) => {
-    e.preventDefault()
-    dropArea.style.borderColor = '#ccc'
-    dropArea.style.backgroundColor = '' // 恢复背景色
-    handleFile(e.dataTransfer.files[0])
-  })
-
-  fileInput.addEventListener('change', (e) => {
-    handleFile(e.target.files[0])
-  })
-
+  dropArea.addEventListener('dragover', handleDragOver)
+  dropArea.addEventListener('dragleave', handleDragLeave)
+  dropArea.addEventListener('drop', handleDrop)
+  fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]))
   closeButton.addEventListener('click', resetUpload)
-
   uploadButton.addEventListener('click', uploadImage)
 
+  // 处理文件拖拽
+  function handleDragOver(e) {
+    e.preventDefault()
+    dropArea.style.borderColor = '#4CAF50'
+    dropArea.style.backgroundColor = '#f0f0f0'
+  }
+
+  function handleDragLeave() {
+    dropArea.style.borderColor = '#ccc'
+    dropArea.style.backgroundColor = ''
+  }
+
+  function handleDrop(e) {
+    e.preventDefault()
+    dropArea.style.borderColor = '#ccc'
+    dropArea.style.backgroundColor = ''
+    handleFile(e.dataTransfer.files[0])
+  }
+
+  // 处理文件选择
   function handleFile(file) {
     if (file && isImageFile(file)) {
       selectedFile = file
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // 重置上传状态
   function resetUpload() {
     selectedFile = null
     previewImage.src = ''
@@ -83,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 初始状态检查
   updateVisibility()
 
+  // 上传图片
   async function uploadImage() {
     if (!selectedFile) return
 
@@ -113,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // 检查文件类型
   function isImageFile(file) {
     const allowedTypes = [
       'image/jpeg',
